@@ -1,0 +1,43 @@
+// Convierte una descripción libre ("2 huevos revueltos y una arepa") en alimentos con macros.
+import { generateJson, HttpError, json, serve, userClient } from "../_shared/claude.ts";
+
+const schema = {
+  type: "object",
+  additionalProperties: false,
+  required: ["items"],
+  properties: {
+    items: {
+      type: "array",
+      items: {
+        type: "object",
+        additionalProperties: false,
+        required: ["name", "quantity_g", "kcal", "protein_g", "carbs_g", "fat_g"],
+        properties: {
+          name: { type: "string" },
+          quantity_g: { type: "number" },
+          kcal: { type: "number" },
+          protein_g: { type: "number" },
+          carbs_g: { type: "number" },
+          fat_g: { type: "number" },
+        },
+      },
+    },
+  },
+};
+
+serve(async (req) => {
+  await userClient(req);
+  const { text } = await req.json().catch(() => ({}));
+  if (!text || typeof text !== "string") throw new HttpError(400, "Describe lo que comiste.");
+
+  const result = await generateJson<{ items: unknown[] }>({
+    system:
+      "Eres un experto en composición de alimentos. Separa la descripción en alimentos individuales y " +
+      "estima porciones típicas en gramos cuando no se indiquen, con valores nutricionales realistas. " +
+      "Usa nombres en español.",
+    prompt: text.slice(0, 2000),
+    schema,
+    effort: "low",
+  });
+  return json(result);
+});
