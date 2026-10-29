@@ -1,5 +1,6 @@
 // Genera una rutina de entrenamiento personalizada y la guarda en la base de datos.
-import { generateJson, HttpError, json, pick, SAFETY_NOTE, serve, userClient } from "../_shared/claude.ts";
+import { generateJson, hasAi, HttpError, json, pick, SAFETY_NOTE, serve, userClient } from "../_shared/claude.ts";
+import { workoutFallback } from "../_shared/fallback.ts";
 
 type AiRoutine = {
   title: string;
@@ -65,7 +66,7 @@ serve(async (req) => {
     .select("id, name, primary_muscle, equipment, place")
     .contains("place", [p.training_place]);
 
-  const routine = await generateJson<AiRoutine>({
+  const routine = !hasAi ? workoutFallback(p, library ?? []) : await generateJson<AiRoutine>({
     system:
       "Eres un entrenador personal certificado. Diseñas rutinas seguras, progresivas y realistas, " +
       "en español de Chile. Prefiere ejercicios de la biblioteca dada, usando su nombre exacto. " +

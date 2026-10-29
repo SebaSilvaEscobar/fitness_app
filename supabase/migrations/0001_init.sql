@@ -281,7 +281,16 @@ $$;
 
 -- Evitar que un usuario se cambie el rol directamente: solo puede editar columnas normales.
 -- become_trainer() corre como dueño de la tabla, así que sí puede cambiarlas.
-revoke update on profiles from authenticated;
+revoke update on profiles from authenticated, anon;
 grant update (full_name, sex, birth_date, height_cm, weight_kg, activity_level, goal, experience,
   training_place, training_days, equipment, dietary_restrictions, target_kcal, target_protein_g,
   target_carbs_g, target_fat_g, onboarded) on profiles to authenticated;
+
+-- Las funciones internas no deben poder llamarse directamente desde la API
+revoke execute on function handle_new_user() from public, anon, authenticated;
+revoke execute on function join_trainer(text), become_trainer() from public, anon;
+grant execute on function join_trainer(text), become_trainer() to authenticated;
+
+-- Las funciones auxiliares de las políticas solo las necesitan usuarios con sesión
+revoke execute on function is_trainer_of(uuid), can_view_routine(uuid), owns_routine(uuid) from public, anon;
+grant execute on function is_trainer_of(uuid), can_view_routine(uuid), owns_routine(uuid) to authenticated;

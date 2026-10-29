@@ -1,5 +1,6 @@
 // Convierte una descripción libre ("2 huevos revueltos y una arepa") en alimentos con macros.
-import { generateJson, HttpError, json, serve, userClient } from "../_shared/claude.ts";
+import { generateJson, hasAi, HttpError, json, serve, userClient } from "../_shared/claude.ts";
+import { parseFoodFallback } from "../_shared/fallback.ts";
 
 const schema = {
   type: "object",
@@ -29,6 +30,14 @@ serve(async (req) => {
   await userClient(req);
   const { text } = await req.json().catch(() => ({}));
   if (!text || typeof text !== "string") throw new HttpError(400, "Describe lo que comiste.");
+
+  if (!hasAi) {
+    const result = parseFoodFallback(text);
+    if (result.items.length === 0) {
+      throw new HttpError(422, "No reconocí esos alimentos. Prueba con nombres simples, por ejemplo: 2 huevos, 1 marraqueta.");
+    }
+    return json(result);
+  }
 
   const result = await generateJson<{ items: unknown[] }>({
     system:

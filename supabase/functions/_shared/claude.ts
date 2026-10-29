@@ -9,7 +9,10 @@ export const corsHeaders = {
 
 export const MODEL = Deno.env.get("CLAUDE_MODEL") ?? "claude-opus-5-5";
 
-const anthropic = new Anthropic({ apiKey: Deno.env.get("ANTHROPIC_API_KEY") });
+const apiKey = Deno.env.get("ANTHROPIC_API_KEY");
+/** Sin clave de Anthropic las funciones usan el modo sin costo (reglas fijas en fallback.ts). */
+export const hasAi = !!apiKey;
+const anthropic = new Anthropic({ apiKey: apiKey ?? "missing" });
 
 export function json(body: unknown, status = 200) {
   return new Response(JSON.stringify(body), {

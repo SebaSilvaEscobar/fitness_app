@@ -1,5 +1,6 @@
 // Genera un plan nutricional semanal según las metas de calorías y macros del usuario.
-import { generateJson, HttpError, json, pick, SAFETY_NOTE, serve, userClient } from "../_shared/claude.ts";
+import { generateJson, hasAi, HttpError, json, pick, SAFETY_NOTE, serve, userClient } from "../_shared/claude.ts";
+import { mealPlanFallback } from "../_shared/fallback.ts";
 
 const food = {
   type: "object",
@@ -65,7 +66,7 @@ serve(async (req) => {
   };
   if (!p.target_kcal) throw new HttpError(400, "Completa tu perfil para calcular tus metas primero.");
 
-  const plan = await generateJson<{ title: string; days: unknown[] }>({
+  const plan = hasAi ? await generateJson<{ title: string; days: unknown[] }>({
     system:
       "Eres nutricionista deportivo. Creas planes de comida variados, sabrosos, económicos y fáciles de " +
       "preparar, con alimentos y preparaciones comunes en Chile y Latinoamérica (por ejemplo marraqueta, palta, porotos, " +
@@ -78,7 +79,7 @@ Objetivo: ${p.goal}
 Restricciones o preferencias: ${(p.dietary_restrictions ?? []).join(", ") || "ninguna"}
 Pedido adicional: ${extra || "ninguno"}`,
     schema,
-  });
+  }) : mealPlanFallback({ kcal: p.target_kcal, days, restrictions: p.dietary_restrictions ?? [] });
 
   const { data, error: insErr } = await supabase
     .from("meal_plans")

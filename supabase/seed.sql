@@ -41,4 +41,8 @@ insert into exercises (name, primary_muscle, equipment, place) values
   ('Mountain climbers', 'Abdomen', 'bodyweight', '{home,gym}'),
   ('Peso muerto con mancuernas', 'Isquiotibiales', 'dumbbell', '{home,gym}'),
   ('Swing con kettlebell', 'Glúteos', 'kettlebell', '{home,gym}'),
-  ('Superman', 'Espalda baja', 'bodyweight', '{home,gym}');
+  ('Superman', 'Espalda baja', 'bodyweight', '{home,gym}'),
+  ('Curl de bíceps con mochila', 'Bíceps', 'bodyweight', '{home}'),
+  ('Zancadas sin peso', 'Cuádriceps', 'bodyweight', '{home,gym}'),
+  ('Puente de glúteos a una pierna', 'Isquiotibiales', 'bodyweight', '{home,gym}'),
+  ('Remo con mochila', 'Espalda', 'bodyweight', '{home}');

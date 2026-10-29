@@ -3,8 +3,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createClient } from '@supabase/supabase-js';
 import { Platform } from 'react-native';
 
-const url = process.env.EXPO_PUBLIC_SUPABASE_URL ?? '';
-const anonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY ?? '';
+// La anon key es pública por diseño (va dentro de la app); la seguridad la ponen las políticas RLS.
+// Se puede reemplazar con un archivo .env para apuntar a otro proyecto.
+const url = process.env.EXPO_PUBLIC_SUPABASE_URL || 'https://fpkcgfuqqvdwxebayrwz.supabase.co';
+const anonKey =
+  process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY ||
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZwa2NnZnVxcXZkd3hlYmF5cnd6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMyODQxOTIsImV4cCI6MjEwODg2MDE5Mn0.AKkEy86V3Mm6jkcr5Bfapc2_OarSW4FGE4dp8SSfDls';
 
 export const supabase = createClient(url, anonKey, {
   auth: {

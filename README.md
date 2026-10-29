@@ -25,27 +25,34 @@ supabase/seed.sql       biblioteca base de ejercicios
 supabase/functions/     funciones de IA: generate-workout, generate-meal-plan, parse-food
 ```
 
-## Puesta en marcha
+## Probar la app en tu teléfono
 
-1. Crea un proyecto en [supabase.com](https://supabase.com) y una clave en [console.anthropic.com](https://console.anthropic.com).
-2. Instala la CLI de Supabase y vincula el proyecto:
-   ```bash
-   npx supabase login
-   npx supabase link --project-ref TU-PROYECTO
-   npx supabase db push                      # crea las tablas
-   npx supabase db execute -f supabase/seed.sql   # o pégalo en el SQL editor
-   npx supabase secrets set ANTHROPIC_API_KEY=sk-ant-...
-   npx supabase functions deploy generate-workout generate-meal-plan parse-food
-   ```
-3. Copia `.env.example` a `.env` y pon la URL y la anon key de tu proyecto.
-4. Corre la app:
+La base de datos y las funciones ya están publicadas en el proyecto de Supabase `fitness_app`, y la app ya apunta a él.
+
+1. Instala [Node.js](https://nodejs.org) (versión LTS) en tu computador y la app **Expo Go** en tu teléfono.
+2. Descarga este repositorio (botón verde **Code → Download ZIP** en GitHub) y descomprímelo.
+3. En una terminal, dentro de la carpeta:
    ```bash
    npm install
-   npx expo start      # escanea el QR con Expo Go en tu teléfono
-   npx expo start --web   # panel web (en pantallas anchas el modo entrenador muestra menú lateral)
+   npx expo start
    ```
+4. Escanea el código QR con la cámara (iPhone) o con Expo Go (Android). El teléfono y el computador deben estar en la misma red wifi.
+5. Para el panel web del entrenador, presiona `w` en esa misma terminal.
 
-   Para publicar el panel web: `npx expo export --platform web` genera la carpeta `dist/`, que puedes subir a Vercel, Netlify o similar.
+## Modo sin costo y modo IA
+
+Si no hay clave de Anthropic configurada, las funciones usan un **modo sin costo**: rutinas armadas con reglas (división por días, series y repeticiones según el objetivo), planes con comidas chilenas escaladas a tus calorías, y registro de comidas que reconoce una lista de alimentos comunes. Para activar la IA basta con agregar la clave como secreto en Supabase (Edge Functions → Secrets → `ANTHROPIC_API_KEY`); no hay que cambiar código.
+
+## Desplegar en otro proyecto de Supabase
+
+```bash
+npx supabase link --project-ref TU-PROYECTO
+npx supabase db push
+npx supabase db execute -f supabase/seed.sql   # o pégalo en el SQL editor
+npx supabase functions deploy generate-workout generate-meal-plan parse-food
+npx supabase secrets set ANTHROPIC_API_KEY=sk-ant-...   # opcional
+```
+Luego crea un `.env` a partir de `.env.example` con la URL y la anon key de ese proyecto.
 
 Modelo de IA: por defecto `claude-opus-5-5`. Puedes cambiarlo con el secreto `CLAUDE_MODEL` (por ejemplo `claude-sonnet-5-5` o `claude-haiku-5-5` para bajar costos).
 
