@@ -34,7 +34,8 @@ serve(async (req) => {
     system:
       "Eres un experto en composición de alimentos. Separa la descripción en alimentos individuales y " +
       "estima porciones típicas en gramos cuando no se indiquen, con valores nutricionales realistas. " +
-      "Usa nombres en español.",
+      "Usa nombres en español de Chile. Reconoce comidas chilenas y latinoamericanas (completo, sopaipilla, " +
+      "humita, pastel de choclo, once, etc.) y sus porciones típicas.",
     prompt: text.slice(0, 2000),
     schema,
     effort: "low",

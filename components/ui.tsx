@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 
 import Colors from '@/constants/Colors';
+import { useWindowDimensions } from 'react-native';
 import { useColorScheme } from '@/components/useColorScheme';
 
 export function useTheme() {
@@ -24,7 +25,9 @@ export function Screen({ children, padded = true }: { children: ReactNode; padde
   return (
     <ScrollView
       style={{ flex: 1, backgroundColor: c.background }}
-      contentContainerStyle={padded ? { padding: 16, gap: 12, paddingBottom: 48 } : undefined}
+      contentContainerStyle={
+        padded ? { padding: 16, gap: 12, paddingBottom: 48, width: '100%', maxWidth: 1100, alignSelf: 'center' } : undefined
+      }
       keyboardShouldPersistTaps="handled">
       {children}
     </ScrollView>
@@ -168,3 +171,22 @@ const styles = StyleSheet.create({
   input: { borderWidth: 1, borderRadius: 12, paddingHorizontal: 14, paddingVertical: 12, fontSize: 16 },
   chip: { borderWidth: 1, borderRadius: 999, paddingHorizontal: 14, paddingVertical: 8 },
 });
+
+/** true en pantallas anchas (navegador de escritorio o tablet horizontal). */
+export function useWide() {
+  return useWindowDimensions().width >= 900;
+}
+
+/** Dos o más columnas en pantallas anchas; una sola columna en el teléfono. */
+export function Columns({ children }: { children: ReactNode }) {
+  const wide = useWide();
+  return (
+    <View style={{ flexDirection: wide ? 'row' : 'column', gap: 12, alignItems: wide ? 'flex-start' : 'stretch' }}>
+      {children}
+    </View>
+  );
+}
+
+export function Column({ children }: { children: ReactNode }) {
+  return <View style={{ flex: 1, gap: 12, minWidth: 0 }}>{children}</View>;
+}

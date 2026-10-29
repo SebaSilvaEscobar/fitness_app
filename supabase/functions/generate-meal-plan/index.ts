@@ -68,7 +68,9 @@ serve(async (req) => {
   const plan = await generateJson<{ title: string; days: unknown[] }>({
     system:
       "Eres nutricionista deportivo. Creas planes de comida variados, sabrosos, económicos y fáciles de " +
-      "preparar, con alimentos comunes en Latinoamérica, en español neutro. Los valores nutricionales deben " +
+      "preparar, con alimentos y preparaciones comunes en Chile y Latinoamérica (por ejemplo marraqueta, palta, porotos, " +
+      "charquicán, cazuela, quesillo), en español de Chile, con productos fáciles de encontrar en supermercados y ferias. " +
+      "Los valores nutricionales deben " +
       "ser realistas y cada día debe acercarse a la meta (±5%). " + SAFETY_NOTE,
     prompt: `Crea un plan de ${days} días.
 Meta diaria: ${p.target_kcal} kcal, ${p.target_protein_g} g proteína, ${p.target_carbs_g} g carbohidratos, ${p.target_fat_g} g grasa.

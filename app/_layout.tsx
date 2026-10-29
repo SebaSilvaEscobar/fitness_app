@@ -69,9 +69,7 @@ function RootLayoutNav() {
           <Stack.Screen name="meal-plan/[id]" options={{ title: 'Plan nutricional' }} />
           <Stack.Screen name="log-food" options={{ title: 'Registrar comida', presentation: 'modal' }} />
           <Stack.Screen name="edit-profile" options={{ title: 'Editar perfil' }} />
-          <Stack.Screen name="trainer/index" options={{ title: 'Modo entrenador' }} />
-          <Stack.Screen name="trainer/client/[id]" options={{ title: 'Cliente' }} />
-          <Stack.Screen name="trainer/routine-editor" options={{ title: 'Editor de rutina' }} />
+          <Stack.Screen name="trainer" options={{ headerShown: false }} />
         </Stack.Protected>
       </Stack>
     </ThemeProvider>

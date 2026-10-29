@@ -65,7 +65,7 @@ export default function Today() {
           <>
             <Txt muted>{data.routine!.title}</Txt>
             <Txt style={{ fontSize: 20, fontWeight: '700' }}>{nextDay.name}</Txt>
-            <Txt muted>{nextDay.routine_exercises.length} ejercicios</Txt>
+            <Txt muted>{nextDay.routine_exercises?.length ?? 0} ejercicios</Txt>
             <Button title="Empezar" onPress={() => router.push(`/workout/${nextDay.id}`)} />
           </>
         ) : (

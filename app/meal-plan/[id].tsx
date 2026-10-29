@@ -1,4 +1,4 @@
-import { Stack, useLocalSearchParams } from 'expo-router';
+import { Stack, router, useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
 import { Alert, ScrollView } from 'react-native';
 
@@ -44,6 +44,13 @@ export default function MealPlanScreen() {
     <Screen>
       <Stack.Screen options={{ title: plan.title }} />
       <Title>{plan.title}</Title>
+      {plan.owner_id === session!.user.id && (
+        <Button
+          variant="outline"
+          title="Editar plan"
+          onPress={() => router.push({ pathname: '/trainer/plan-editor', params: { id: plan.id } })}
+        />
+      )}
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <Chips options={plan.plan.days.map((d, i) => ({ label: d.day, value: i }))} value={dayIdx} onChange={setDayIdx} />
       </ScrollView>

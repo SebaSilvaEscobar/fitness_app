@@ -1,6 +1,6 @@
 # FitApp
 
-App móvil (iOS y Android, también funciona en web) de nutrición y entrenamiento con IA, con modo para entrenadores personales.
+App móvil (iOS y Android) con panel web para entrenadores de nutrición y entrenamiento con IA, con modo para entrenadores personales.
 
 ## Qué incluye este MVP
 
@@ -8,7 +8,7 @@ App móvil (iOS y Android, también funciona en web) de nutrición y entrenamien
 - **Nutrición:** registro diario por comida escribiendo en lenguaje natural ("2 huevos y una arepa"), la IA lo convierte en alimentos con macros. Planes semanales generados por IA con recetas, y botón para registrar una comida del plan.
 - **Entrenamiento:** rutinas generadas por IA para gym o casa usando una biblioteca de ejercicios, registro de series (peso y reps) con la referencia de la última sesión, temporizador de descanso, aviso de récord personal e historial.
 - **Progreso:** peso corporal con gráfica, entrenamientos de la semana y récords.
-- **Entrenador personal:** activa el modo entrenador, comparte un código de invitación, crea rutinas a mano o con borrador de IA, crea planes nutricionales, ve el avance de cada cliente y le asigna rutinas y planes.
+- **Entrenador personal (en el teléfono o en el panel web desde el computador):** activa el modo entrenador, comparte un código de invitación, crea rutinas y planes nutricionales a mano o con borrador de IA, ve el avance de cada cliente y le asigna rutinas y planes.
 
 ## Stack
 
@@ -42,7 +42,10 @@ supabase/functions/     funciones de IA: generate-workout, generate-meal-plan, p
    ```bash
    npm install
    npx expo start      # escanea el QR con Expo Go en tu teléfono
+   npx expo start --web   # panel web (en pantallas anchas el modo entrenador muestra menú lateral)
    ```
+
+   Para publicar el panel web: `npx expo export --platform web` genera la carpeta `dist/`, que puedes subir a Vercel, Netlify o similar.
 
 Modelo de IA: por defecto `claude-opus-5-5`. Puedes cambiarlo con el secreto `CLAUDE_MODEL` (por ejemplo `claude-sonnet-5-5` o `claude-haiku-5-5` para bajar costos).
 

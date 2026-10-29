@@ -68,7 +68,7 @@ serve(async (req) => {
   const routine = await generateJson<AiRoutine>({
     system:
       "Eres un entrenador personal certificado. Diseñas rutinas seguras, progresivas y realistas, " +
-      "en español neutro. Prefiere ejercicios de la biblioteca dada, usando su nombre exacto. " +
+      "en español de Chile. Prefiere ejercicios de la biblioteca dada, usando su nombre exacto. " +
       SAFETY_NOTE,
     prompt: `Crea una rutina para esta persona.
 Objetivo: ${p.goal}
