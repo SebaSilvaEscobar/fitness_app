@@ -42,7 +42,7 @@ function DesktopShell() {
   return (
     <View style={{ flex: 1, flexDirection: 'row', backgroundColor: c.background }}>
       <View style={{ width: 240, backgroundColor: c.card, borderRightWidth: 1, borderColor: c.border, padding: 20, gap: 6 }}>
-        <Txt style={{ fontSize: 24, fontWeight: '800', color: c.primary }}>FitApp</Txt>
+        <Txt style={{ fontSize: 24, fontWeight: '800', color: c.primary }}>Pulso</Txt>
         <Txt muted style={{ marginBottom: 16 }}>Panel del entrenador</Txt>
         {NAV.map((n) => (
           <Pressable

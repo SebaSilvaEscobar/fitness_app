@@ -27,7 +27,7 @@ export default function Login() {
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <Screen>
         <View style={{ height: 80 }} />
-        <Txt style={{ fontSize: 40, fontWeight: '800', color: c.primary }}>FitApp</Txt>
+        <Txt style={{ fontSize: 40, fontWeight: '800', color: c.primary }}>Pulso</Txt>
         <Title>{mode === 'login' ? 'Bienvenido de nuevo' : 'Crea tu cuenta'}</Title>
         <Txt muted>Tu nutrición y entrenamiento, guiados por IA.</Txt>
         {mode === 'signup' && <Input label="Nombre" value={name} onChangeText={setName} autoComplete="name" />}

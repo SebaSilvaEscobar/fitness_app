@@ -1,14 +1,15 @@
 {
   "expo": {
-    "name": "fitapp",
-    "slug": "fitapp",
+    "name": "Pulso",
+    "slug": "pulso",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "fitapp",
+    "scheme": "pulso",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "cl.pulso.app"
     },
     "android": {
       "adaptiveIcon": {
@@ -17,7 +18,8 @@
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "cl.pulso.app"
     },
     "web": {
       "bundler": "metro",

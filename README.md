@@ -1,4 +1,4 @@
-# FitApp
+# Pulso
 
 App móvil (iOS y Android) con panel web para entrenadores de nutrición y entrenamiento con IA, con modo para entrenadores personales.
 

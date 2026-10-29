@@ -57,7 +57,7 @@ export default function TrainerHome() {
   }, []);
 
   const share = () =>
-    Share.share({ message: `Entrena conmigo en FitApp. Descarga la app y usa mi código: ${profile?.trainer_invite_code}` });
+    Share.share({ message: `Entrena conmigo en Pulso. Descarga la app y usa mi código: ${profile?.trainer_invite_code}` });
 
   return (
     <Screen>
